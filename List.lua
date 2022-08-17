@@ -5,6 +5,17 @@ local List = {}
 local ListMetatable = {}
 local storage = {}
 
+function range(min, max, step)
+    local i = -1
+    
+    return function()
+        return function()
+            i = i + step
+            if i < max then return i end
+        end
+    end
+end
+
 local function enumerate(iter)
     iter = iter()
     local i = -1
@@ -124,17 +135,6 @@ function List:__add(other)
         new:append(item)
     end
     return new
-end
-
-function range(min, max, step)
-    local i = -1
-    
-    return function()
-        return function()
-            i = i + step
-            if i < max then return i end
-        end
-    end
 end
 
 function List:__call()
